@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.2//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="loginUser.username">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>用户名不能为空</message>
+        </field-validator>
+    </field>
+    <field name="loginUser.password">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>密码不能为空</message>
+        </field-validator>
+    </field>
+    <field name="loginUser.repassword">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>确认密码不能为空</message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+<!--type="fieldexpression"表示使用fieldexpression校验器。fieldexpression校验器会通过表达式来判断字段的有效性。-->
+            <param name="expression"><![CDATA[#loginUser.repassword.equals(#loginUser.password)]]></param>
+<!--            CDATA 表示字符数据，是 XML 中用来包含文本字符串的标记。它的作用是告诉解析器不要对其中的文本进行解析，而是原封不动地保留其中的内容。-->
+            <message>两次密码输入不一致</message>
+        </field-validator>
+    </field>
+    <field name="loginUser.email">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>邮箱不能为空</message>
+        </field-validator>
+        <field-validator type="email">
+            <param name="trim">true</param>
+            <message>邮箱格式不正确</message>
+        </field-validator>
+    </field>
+</validators>
